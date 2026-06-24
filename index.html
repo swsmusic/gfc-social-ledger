@@ -5,153 +5,193 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GFC Social Posting Ledger — Upcoming 14 Days</title>
 <style>
-:root { --bg:#f7f3ea; --ink:#1f2933; --muted:#667085; --card:#fffdf8; --line:#e6dcc8; --fb:#1d4ed8; --ig:#be185d; --gold:#b7791f; }
+:root { --bg:#0f1720; --panel:#fffaf0; --ink:#172033; --muted:#697384; --line:#d6c7a8; --path:#c29448; --fb:#2563eb; --ig:#c026d3; --green:#1f7a4d; }
 * { box-sizing:border-box; }
-body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:linear-gradient(180deg,#fbf7ef,var(--bg)); color:var(--ink); }
-header { padding:32px 22px 18px; max-width:1120px; margin:auto; }
-h1 { margin:0 0 8px; font-size:clamp(28px,5vw,48px); letter-spacing:-.04em; }
-.sub { color:var(--muted); font-size:16px; line-height:1.5; max-width:760px; }
-.stats { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-.stat { background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px 14px; box-shadow:0 3px 14px rgba(31,41,51,.06); }
-.stat strong { display:block; font-size:22px; }
-.toolbar { max-width:1120px; margin:0 auto 14px; padding:0 22px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-.toolbar a { color:#1d4ed8; text-decoration:none; font-weight:700; }
-.grid { max-width:1120px; margin:auto; padding:0 22px 44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
-.card { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:20px; padding:18px; box-shadow:0 8px 30px rgba(31,41,51,.08); }
-.card.fb { border-left-color:var(--fb); } .card.ig { border-left-color:var(--ig); }
-.date { display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.06em; }
-.date strong { color:var(--ink); }
-.meta { display:flex; flex-wrap:wrap; gap:7px; margin:14px 0; }
-.pill { border:1px solid var(--line); background:#fff; border-radius:999px; padding:5px 9px; color:var(--muted); font-size:12px; font-weight:700; }
-.pill.fb { color:#fff; background:var(--fb); border-color:var(--fb); } .pill.ig { color:#fff; background:var(--ig); border-color:var(--ig); } .pill.source { background:#fff7db; color:#7c4a03; }
-h2 { font-size:20px; margin:0 0 12px; letter-spacing:-.02em; line-height:1.18; }
-p { line-height:1.5; }
-.asset { color:var(--muted); font-size:14px; overflow-wrap:anywhere; }
-.status { font-weight:700; }
-details { margin-top:12px; border-top:1px solid var(--line); padding-top:12px; }
-summary { cursor:pointer; color:var(--muted); font-weight:700; }
-code { display:block; white-space:normal; overflow-wrap:anywhere; background:#f3eee4; border-radius:10px; padding:8px; font-size:12px; }
-footer { max-width:1120px; margin:auto; padding:0 22px 28px; color:var(--muted); font-size:13px; }
+body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:radial-gradient(circle at top left,#334155 0,#111827 42%,#070b12 100%); color:#f8fafc; }
+header { max-width:1180px; margin:0 auto; padding:24px 18px 12px; }
+h1 { margin:0; font-size:clamp(28px,5vw,46px); letter-spacing:-.05em; line-height:.95; }
+.sub { margin:10px 0 0; max-width:760px; color:#cbd5e1; line-height:1.45; }
+.kpis { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.kpi { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); border-radius:999px; padding:7px 11px; font-size:13px; color:#e2e8f0; }
+.kpi strong { color:white; }
+.toolbar { max-width:1180px; margin:0 auto; padding:0 18px 14px; font-size:14px; color:#cbd5e1; }
+.toolbar a { color:#fde68a; font-weight:800; text-decoration:none; }
+.maze-wrap { max-width:1180px; margin:0 auto; padding:10px 18px 42px; }
+.maze { position:relative; display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:minmax(168px,auto); gap:18px; padding:22px; border:1px solid rgba(255,255,255,.14); border-radius:28px; background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03)); box-shadow:0 18px 70px rgba(0,0,0,.28); overflow:hidden; }
+.maze:before { content:""; position:absolute; inset:38px 54px; border:8px solid rgba(194,148,72,.28); border-radius:30px; pointer-events:none; }
+.maze:after { content:""; position:absolute; left:54px; right:54px; top:50%; height:8px; transform:translateY(-50%); background:linear-gradient(90deg,rgba(194,148,72,.18),rgba(194,148,72,.5),rgba(194,148,72,.18)); border-radius:999px; pointer-events:none; }
+.node { grid-column:var(--col); grid-row:var(--row); position:relative; z-index:2; min-height:168px; padding:13px; border-radius:20px; background:var(--panel); color:var(--ink); border:2px solid var(--line); box-shadow:0 12px 34px rgba(0,0,0,.20); }
+.node.fb { border-color:rgba(37,99,235,.55); } .node.ig { border-color:rgba(192,38,211,.55); }
+.step { position:absolute; top:-11px; left:14px; width:34px; height:34px; display:grid; place-items:center; border-radius:999px; color:#111827; font-weight:900; font-size:13px; background:#facc15; box-shadow:0 4px 10px rgba(0,0,0,.25); }
+.node-head { display:flex; justify-content:space-between; align-items:center; gap:8px; margin:6px 0 10px 38px; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+.node-head strong { color:var(--ink); }
+.chips { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
+.chip { display:inline-flex; align-items:center; border-radius:999px; padding:4px 7px; background:#efe5cf; color:#574b35; font-size:11px; font-weight:800; }
+.chip.fb { background:var(--fb); color:white; } .chip.ig { background:var(--ig); color:white; }
+h2 { margin:0; font-size:15px; line-height:1.12; letter-spacing:-.02em; }
+.source { margin:8px 0 0; color:var(--green); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.06em; }
+details { margin-top:8px; padding-top:7px; border-top:1px solid #eadfc8; color:var(--muted); font-size:12px; }
+summary { cursor:pointer; font-weight:900; color:#475569; }
+code { display:block; margin-top:6px; padding:6px; border-radius:8px; background:#f1eadb; overflow-wrap:anywhere; color:#475569; font-size:10px; }
+footer { max-width:1180px; margin:0 auto; padding:0 18px 28px; color:#94a3b8; font-size:13px; }
+@media (max-width: 900px) { .maze { grid-template-columns:repeat(2,1fr); grid-auto-rows:auto; } .node { grid-column:auto !important; grid-row:auto !important; } .maze:before,.maze:after { display:none; } }
+@media (max-width: 560px) { header { padding-top:18px; } .maze-wrap { padding:6px 10px 32px; } .maze { grid-template-columns:1fr; gap:12px; padding:12px; border-radius:20px; } .node { min-height:auto; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>GFC Social Posting Ledger</h1>
-  <p class="sub">Upcoming two-week Facebook + Instagram posting view. This is an approval-gated planning ledger only — it does not publish posts.</p>
-  <div class="stats"><div class="stat"><strong>12</strong>Total planned</div><div class="stat"><strong>6</strong>Facebook</div><div class="stat"><strong>6</strong>Instagram</div><div class="stat"><strong>2026-06-24 09:51 AM EST</strong>Last updated</div></div>
+  <h1>GFC Social Maze</h1>
+  <p class="sub">A compact two-week route for Facebook + Instagram posts. Follow the yellow numbers like a tiny campaign maze. Planning only — nothing publishes from this view.</p>
+  <div class="kpis"><span class="kpi"><strong>12</strong> planned</span><span class="kpi"><strong>6</strong> Facebook</span><span class="kpi"><strong>6</strong> Instagram</span><span class="kpi">Updated <strong>2026-06-24 09:57 AM EST</strong></span></div>
 </header>
-<div class="toolbar"><span>Internal CSV:</span> <a href="https://drive.google.com/file/d/1TSwPBMORZ4UeOeYpg2WCzyw7y8639Qmk/view?usp=drivesdk">Open CSV in Drive</a></div>
-<main class="grid">
+<div class="toolbar">Raw ledger: <a href="https://drive.google.com/file/d/1TSwPBMORZ4UeOeYpg2WCzyw7y8639Qmk/view?usp=drivesdk">Open CSV in Drive</a> · <a href="gfc-social-upcoming-14-days.csv">Hosted CSV</a></div>
+<main class="maze-wrap"><section class="maze" aria-label="Upcoming GFC social posting route">
 
-            <article class="card fb">
-              <div class="date"><span>Wednesday</span><strong>2026-06-24</strong></div>
-              <div class="meta"><span class="pill fb">Facebook</span><span class="pill">Reel + caption</span><span class="pill source">real clip</span></div>
+            <article class="node fb" style="--row:1; --col:1;">
+              <div class="step">01</div>
+              <div class="node-head">
+                <strong>Wed</strong>
+                <span>06-24</span>
+              </div>
+              <div class="chips"><span class="chip fb">Facebook</span><span class="chip">Reel</span></div>
               <h2>GFC mission/funding-bottleneck frame</h2>
-              <p class="asset">Asset: gfc-reel-funding-bottleneck-demo.mp4</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>GFC mission/funding-bottleneck frame</p><code>facebook-reel-demo-caption-gfc-mission-funding-bottleneck-frame-gfc-reel-funding-bottleneck-demo-mp4</code></details>
+              <p class="source">real clip</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-reel-funding-bottleneck-demo.mp4</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>facebook-reel-demo-caption-gfc-mission-funding-bottleneck-frame-gfc-reel-funding-bottleneck-demo-mp4</code></details>
             </article>
             
-            <article class="card ig">
-              <div class="date"><span>Thursday</span><strong>2026-06-25</strong></div>
-              <div class="meta"><span class="pill ig">Instagram</span><span class="pill">Static image + caption</span><span class="pill source">trust point</span></div>
+            <article class="node ig" style="--row:1; --col:2;">
+              <div class="step">02</div>
+              <div class="node-head">
+                <strong>Thu</strong>
+                <span>06-25</span>
+              </div>
+              <div class="chips"><span class="chip ig">Instagram</span><span class="chip">Static image</span></div>
               <h2>Donor trust / stewardship</h2>
-              <p class="asset">Asset: gfc-ig-static-donor-trust.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Donor trust / stewardship</p><code>instagram-static-image-caption-donor-trust-stewardship-gfc-ig-static-donor-trust-png</code></details>
+              <p class="source">trust point</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-ig-static-donor-trust.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>instagram-static-image-caption-donor-trust-stewardship-gfc-ig-static-donor-trust-png</code></details>
             </article>
             
-            <article class="card fb">
-              <div class="date"><span>Friday</span><strong>2026-06-26</strong></div>
-              <div class="meta"><span class="pill fb">Facebook</span><span class="pill">Long-form text post</span><span class="pill source">trust point</span></div>
+            <article class="node fb" style="--row:1; --col:3;">
+              <div class="step">03</div>
+              <div class="node-head">
+                <strong>Fri</strong>
+                <span>06-26</span>
+              </div>
+              <div class="chips"><span class="chip fb">Facebook</span><span class="chip">Long-form text post</span></div>
               <h2>Donor education / mission frame</h2>
-              <p class="asset">Asset: gfc-fb-text-funding-bottleneck.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Donor education / mission frame</p><code>facebook-long-form-text-post-donor-education-mission-frame-gfc-fb-text-funding-bottleneck-png</code></details>
+              <p class="source">trust point</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-fb-text-funding-bottleneck.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>facebook-long-form-text-post-donor-education-mission-frame-gfc-fb-text-funding-bottleneck-png</code></details>
             </article>
             
-            <article class="card ig">
-              <div class="date"><span>Saturday</span><strong>2026-06-27</strong></div>
-              <div class="meta"><span class="pill ig">Instagram</span><span class="pill">Reel + caption</span><span class="pill source">real clip</span></div>
+            <article class="node ig" style="--row:1; --col:4;">
+              <div class="step">04</div>
+              <div class="node-head">
+                <strong>Sat</strong>
+                <span>06-27</span>
+              </div>
+              <div class="chips"><span class="chip ig">Instagram</span><span class="chip">Reel</span></div>
               <h2>GFC mission/funding-bottleneck frame</h2>
-              <p class="asset">Asset: gfc-reel-funding-bottleneck-demo.mp4</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>GFC mission/funding-bottleneck frame</p><code>instagram-reel-demo-caption-gfc-mission-funding-bottleneck-frame-gfc-reel-funding-bottleneck-demo-mp4</code></details>
+              <p class="source">real clip</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-reel-funding-bottleneck-demo.mp4</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>instagram-reel-demo-caption-gfc-mission-funding-bottleneck-frame-gfc-reel-funding-bottleneck-demo-mp4</code></details>
             </article>
             
-            <article class="card fb">
-              <div class="date"><span>Monday</span><strong>2026-06-29</strong></div>
-              <div class="meta"><span class="pill fb">Facebook</span><span class="pill">Static image + caption</span><span class="pill source">project</span></div>
+            <article class="node fb" style="--row:1; --col:5;">
+              <div class="step">05</div>
+              <div class="node-head">
+                <strong>Mon</strong>
+                <span>06-29</span>
+              </div>
+              <div class="chips"><span class="chip fb">Facebook</span><span class="chip">Static image</span></div>
               <h2>Bombardier beetle sprinkler project</h2>
-              <p class="asset">Asset: gfc-fb-static-bombardier-beetle.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Bombardier beetle sprinkler project</p><code>facebook-static-image-caption-bombardier-beetle-sprinkler-project-gfc-fb-static-bombardier-beetle-png</code></details>
+              <p class="source">project</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-fb-static-bombardier-beetle.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>facebook-static-image-caption-bombardier-beetle-sprinkler-project-gfc-fb-static-bombardier-beetle-png</code></details>
             </article>
             
-            <article class="card ig">
-              <div class="date"><span>Tuesday</span><strong>2026-06-30</strong></div>
-              <div class="meta"><span class="pill ig">Instagram</span><span class="pill">Static image + caption</span><span class="pill source">article</span></div>
+            <article class="node ig" style="--row:1; --col:6;">
+              <div class="step">06</div>
+              <div class="node-head">
+                <strong>Tue</strong>
+                <span>06-30</span>
+              </div>
+              <div class="chips"><span class="chip ig">Instagram</span><span class="chip">Static image</span></div>
               <h2>Fresh article: rings of Saturn</h2>
-              <p class="asset">Asset: gfc-ig-static-rings-saturn.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Fresh article: rings of Saturn</p><code>instagram-static-image-caption-fresh-article-rings-of-saturn-gfc-ig-static-rings-saturn-png</code></details>
+              <p class="source">article</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-ig-static-rings-saturn.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>instagram-static-image-caption-fresh-article-rings-of-saturn-gfc-ig-static-rings-saturn-png</code></details>
             </article>
             
-            <article class="card fb">
-              <div class="date"><span>Wednesday</span><strong>2026-07-01</strong></div>
-              <div class="meta"><span class="pill fb">Facebook</span><span class="pill">Reel + caption</span><span class="pill source">project</span></div>
+            <article class="node fb" style="--row:2; --col:6;">
+              <div class="step">07</div>
+              <div class="node-head">
+                <strong>Wed</strong>
+                <span>07-01</span>
+              </div>
+              <div class="chips"><span class="chip fb">Facebook</span><span class="chip">Reel</span></div>
               <h2>Dino DNA project</h2>
-              <p class="asset">Asset: gfc-reel-dino-dna-demo.mp4</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Dino DNA project</p><code>facebook-reel-demo-caption-dino-dna-project-gfc-reel-dino-dna-demo-mp4</code></details>
+              <p class="source">project</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-reel-dino-dna-demo.mp4</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>facebook-reel-demo-caption-dino-dna-project-gfc-reel-dino-dna-demo-mp4</code></details>
             </article>
             
-            <article class="card ig">
-              <div class="date"><span>Thursday</span><strong>2026-07-02</strong></div>
-              <div class="meta"><span class="pill ig">Instagram</span><span class="pill">Static image + caption</span><span class="pill source">project</span></div>
+            <article class="node ig" style="--row:2; --col:5;">
+              <div class="step">08</div>
+              <div class="node-head">
+                <strong>Thu</strong>
+                <span>07-02</span>
+              </div>
+              <div class="chips"><span class="chip ig">Instagram</span><span class="chip">Static image</span></div>
               <h2>Dino DNA project</h2>
-              <p class="asset">Asset: gfc-fb-static-dino-dna.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Dino DNA project</p><code>instagram-static-image-caption-dino-dna-project-gfc-fb-static-dino-dna-png</code></details>
+              <p class="source">project</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-fb-static-dino-dna.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>instagram-static-image-caption-dino-dna-project-gfc-fb-static-dino-dna-png</code></details>
             </article>
             
-            <article class="card fb">
-              <div class="date"><span>Friday</span><strong>2026-07-03</strong></div>
-              <div class="meta"><span class="pill fb">Facebook</span><span class="pill">Long-form text post</span><span class="pill source">trust point</span></div>
+            <article class="node fb" style="--row:2; --col:4;">
+              <div class="step">09</div>
+              <div class="node-head">
+                <strong>Fri</strong>
+                <span>07-03</span>
+              </div>
+              <div class="chips"><span class="chip fb">Facebook</span><span class="chip">Long-form text post</span></div>
               <h2>Donor stewardship / 90 percent trust point</h2>
-              <p class="asset">Asset: gfc-ig-static-90-percent.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Donor stewardship / 90 percent trust point</p><code>facebook-long-form-text-post-donor-stewardship-90-percent-trust-point-gfc-ig-static-90-percent-png</code></details>
+              <p class="source">trust point</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-ig-static-90-percent.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>facebook-long-form-text-post-donor-stewardship-90-percent-trust-point-gfc-ig-static-90-percent-png</code></details>
             </article>
             
-            <article class="card ig">
-              <div class="date"><span>Saturday</span><strong>2026-07-04</strong></div>
-              <div class="meta"><span class="pill ig">Instagram</span><span class="pill">Reel + caption</span><span class="pill source">project</span></div>
+            <article class="node ig" style="--row:2; --col:3;">
+              <div class="step">10</div>
+              <div class="node-head">
+                <strong>Sat</strong>
+                <span>07-04</span>
+              </div>
+              <div class="chips"><span class="chip ig">Instagram</span><span class="chip">Reel</span></div>
               <h2>Dino DNA project</h2>
-              <p class="asset">Asset: gfc-reel-dino-dna-demo.mp4</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Dino DNA project</p><code>instagram-reel-demo-caption-dino-dna-project-gfc-reel-dino-dna-demo-mp4</code></details>
+              <p class="source">project</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-reel-dino-dna-demo.mp4</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>instagram-reel-demo-caption-dino-dna-project-gfc-reel-dino-dna-demo-mp4</code></details>
             </article>
             
-            <article class="card fb">
-              <div class="date"><span>Monday</span><strong>2026-07-06</strong></div>
-              <div class="meta"><span class="pill fb">Facebook</span><span class="pill">Static image + caption</span><span class="pill source">project</span></div>
+            <article class="node fb" style="--row:2; --col:2;">
+              <div class="step">11</div>
+              <div class="node-head">
+                <strong>Mon</strong>
+                <span>07-06</span>
+              </div>
+              <div class="chips"><span class="chip fb">Facebook</span><span class="chip">Static image</span></div>
               <h2>Dino DNA project + recent donor activity context</h2>
-              <p class="asset">Asset: gfc-fb-static-dino-dna.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>Dino DNA project + recent donor activity context</p><code>facebook-static-image-caption-dino-dna-project-recent-donor-activity-context-gfc-fb-static-dino-dna-png</code></details>
+              <p class="source">project</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-fb-static-dino-dna.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>facebook-static-image-caption-dino-dna-project-recent-donor-activity-context-gfc-fb-static-dino-dna-png</code></details>
             </article>
             
-            <article class="card ig">
-              <div class="date"><span>Tuesday</span><strong>2026-07-07</strong></div>
-              <div class="meta"><span class="pill ig">Instagram</span><span class="pill">Static image + caption</span><span class="pill source">trust point</span></div>
+            <article class="node ig" style="--row:2; --col:1;">
+              <div class="step">12</div>
+              <div class="node-head">
+                <strong>Tue</strong>
+                <span>07-07</span>
+              </div>
+              <div class="chips"><span class="chip ig">Instagram</span><span class="chip">Static image</span></div>
               <h2>90 percent stewardship point</h2>
-              <p class="asset">Asset: gfc-ig-static-90-percent.png</p>
-              <p class="status">draft ready for review · not scheduled</p>
-              <details><summary>Source / anti-repeat key</summary><p>90 percent stewardship point</p><code>instagram-static-image-caption-90-percent-stewardship-point-gfc-ig-static-90-percent-png</code></details>
+              <p class="source">trust point</p>
+              <details><summary>Details</summary><p><b>Asset:</b> gfc-ig-static-90-percent.png</p><p><b>Status:</b> draft ready for review · not scheduled</p><code>instagram-static-image-caption-90-percent-stewardship-point-gfc-ig-static-90-percent-png</code></details>
             </article>
             
-</main>
+</section></main>
 <footer>Generated by ChiefOfStaffOS from the GFC source ledger. Duplicate guard uses source/platform/format/asset keys.</footer>
 </body>
 </html>
